@@ -1,22 +1,24 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace XRMechanicsTookit.Archery
 {
+    [RequireComponent(typeof(LineRenderer))]
     public class PullInteraction : XRBaseInteractable
     {
-        public Transform Start;
-        public Transform End;
-
-        public GameObject Notch;
-        public float PullAmount = 0.0f;
-
         public static event Action<float> PullReleased;
 
+        [SerializeField]
+        private Transform start;
+
+        [SerializeField]
+        private Transform end;
+
+        [SerializeField]
+        private GameObject notch;
+
+        private float PullAmount = 0.0f;
         private LineRenderer lineRenderer;
         private IXRSelectInteractor pullInteractor = null;
 
@@ -47,14 +49,14 @@ namespace XRMechanicsTookit.Archery
             PullReleased?.Invoke(PullAmount);
             pullInteractor = null;
             PullAmount = 0f;
-            Notch.transform.localPosition = new Vector3(Notch.transform.localPosition.x, Notch.transform.localPosition.y, 0f);
+            notch.transform.localPosition = new Vector3(notch.transform.localPosition.x, notch.transform.localPosition.y, 0f);
             UpdateString();
         }
 
         private float CalculatePull(Vector3 pullPos)
         {
-            Vector3 pullDir = pullPos - Start.position;
-            Vector3 targetDir = End.position - Start.position;
+            Vector3 pullDir = pullPos - start.position;
+            Vector3 targetDir = end.position - start.position;
             float maxLength = targetDir.magnitude;
             targetDir.Normalize();
 
@@ -64,9 +66,9 @@ namespace XRMechanicsTookit.Archery
 
         private void UpdateString()
         {
-            Vector3 linePos = Vector3.forward * Mathf.Lerp(Start.transform.localPosition.z, End.transform.localPosition.z, PullAmount);
-            Vector3 notchPos = Notch.transform.localPosition;
-            Notch.transform.localPosition = new Vector3(notchPos.x, notchPos.y, linePos.z + 0.2f);
+            Vector3 linePos = Vector3.forward * Mathf.Lerp(start.transform.localPosition.z, end.transform.localPosition.z, PullAmount);
+            Vector3 notchPos = notch.transform.localPosition;
+            notch.transform.localPosition = new Vector3(notchPos.x, notchPos.y, linePos.z + 0.2f);
             lineRenderer.SetPosition(1, linePos);
         }
     }
