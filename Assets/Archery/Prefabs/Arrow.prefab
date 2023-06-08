@@ -44,10 +44,10 @@ GameObject:
   - component: {fileID: 5238558467844908810}
   - component: {fileID: 152136404706795243}
   - component: {fileID: 932726118067939018}
-  - component: {fileID: 7693198424454404971}
+  - component: {fileID: 4967290969794271053}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 7693198424454404971}
+  - {fileID: 0}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -281,8 +281,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!64 &7693198424454404971
-MeshCollider:
+--- !u!65 &4967290969794271053
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -299,7 +299,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 568036627037906997, guid: 4fa68e0d267fb454bafd0a157c2526ce, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.03896069, y: 0.59999996, z: 0.03896069}
+  m_Center: {x: 0, y: 0.2999995, z: 0}

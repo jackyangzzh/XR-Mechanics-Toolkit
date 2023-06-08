@@ -1,66 +1,57 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class BowString : MonoBehaviour
+public class BowString : XRBaseInteractable
 {
-    public GameObject bowStringStart;
-    public GameObject bowStringEnd;
-    public GameObject arrowNotch; // The point where the arrow meets the bowstring
-    public XRSocketInteractor socketInteractor;
-    public float maxPullDistance = 1.0f; // Maximum distance the bowstring can be pulled back
-    private LineRenderer lineRenderer;
-    private GameObject arrow; // The arrow currently in the bow
-    private Vector3 originalNotchPosition; // The original position of the arrow notch
+    public Transform stringStartPoint;
+    public Transform stringEndPoint;
 
-    // Start is called before the first frame update
-    void Start()
+    private XRBaseInteractor stringInteractor = null;
+    private Vector3 pullPosition;
+    private Vector3 pullDirection;
+    private Vector3 targetDirection;
+
+    public float PullAmount { get; private set; } = 0.0f;
+
+    protected override void Awake()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = 3; // The number of points to connect.
-
-        socketInteractor.selectEntered.AddListener(HandleInsert);
-        socketInteractor.selectExited.AddListener(HandleRelease);
-
-        originalNotchPosition = arrowNotch.transform.position;
+        base.Awake();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        // Set the position of the start and end of the line to match the bowstring's ends.
-        lineRenderer.SetPosition(0, bowStringStart.transform.position);
-        lineRenderer.SetPosition(1, arrowNotch.transform.position);
-        lineRenderer.SetPosition(2, bowStringEnd.transform.position);
+        base.OnSelectEntered(args);
+        this.stringInteractor = args.interactor;
     }
 
-    void HandleInsert(SelectEnterEventArgs arg0)
+    protected override void OnSelectExited(SelectExitEventArgs args)
     {
-        // When an arrow is inserted into the socket, store it
-        //arrow = interactor.gameObject;
+        base.OnSelectExited(args);
+        this.stringInteractor = null;
+        this.PullAmount = 0f;
     }
 
-    void HandleRelease(SelectExitEventArgs arg0)
+    public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
     {
-        // Calculate the distance from the starting position to the desired position
-        float distance = Vector3.Distance(bowStringStart.transform.position, arrowNotch.transform.position);
+        base.ProcessInteractable(updatePhase);
 
-        // If the distance is within the allowed distance, fire the arrow
-        if (distance <= maxPullDistance)
+        if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic && isSelected)
         {
-            FireArrow();
+            this.pullPosition = this.stringInteractor.transform.position;
+            this.PullAmount = CalculatePull(this.pullPosition);
+            Debug.Log("<<<<< Pull amount is "+ PullAmount+" >>>>>");
         }
-
-        // Reset the position of the arrow notch
-        arrowNotch.transform.position = originalNotchPosition;
     }
 
-    void FireArrow()
+    private float CalculatePull(Vector3 pullPosition)
     {
-        // Fire the arrow here.
-        // This will involve applying a force to the arrow in the direction the bow is facing,
-        // and detaching the arrow from the socket interactor.
+        this.pullDirection = pullPosition - stringStartPoint.position;
+        this.targetDirection = stringEndPoint.position - stringStartPoint.position;
+        float maxLength = targetDirection.magnitude;
+
+        targetDirection.Normalize();
+
+        float pullValue = Vector3.Dot(pullDirection, targetDirection) / maxLength;
+        return Mathf.Clamp(pullValue, 0, 1);
     }
 }
