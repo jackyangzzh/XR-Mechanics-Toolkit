@@ -4,40 +4,36 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace XRMechanicsTookit.Archery
 {
-    public class ArrowSpawner : MonoBehaviour
+    public class Bow : XRGrabInteractable
     {
         [SerializeField]
         private GameObject arrow;
 
         [SerializeField]
-        private GameObject notch;
+        private Transform notch;
 
-        private XRGrabInteractable bow;
         private bool arrowNotched = false;
         private GameObject currArrow;
 
-        private void Awake()
+        protected override void OnEnable()
         {
-            bow = GetComponentInParent<XRGrabInteractable>();
+            base.OnEnable();
+            BowString.PullReleased += NotchEmpty;
         }
 
-        private void OnEnable()
+        protected override void OnDestroy()
         {
-            PullInteraction.PullReleased += NotchEmpty;
-        }
-
-        private void OnDestroy()
-        {
-            PullInteraction.PullReleased -= NotchEmpty;
+            base.OnDestroy();
+            BowString.PullReleased -= NotchEmpty;
         }
 
         private void Update()
         {
-            if (bow.isSelected && !arrowNotched)
+            if (isSelected && !arrowNotched)
             {
                 StartCoroutine(DelaySpawn());
             }
-            if (!bow.isSelected)
+            if (!isSelected)
             {
                 Destroy(currArrow);
             }
@@ -51,8 +47,8 @@ namespace XRMechanicsTookit.Archery
         private IEnumerator DelaySpawn()
         {
             arrowNotched = true;
-            yield return new WaitForSeconds(0.5f);
-            arrow = Instantiate(arrow, notch.transform);
+            yield return new WaitForSeconds(1f);
+            currArrow = Instantiate(arrow, notch);
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace XRMechanicsTookit.Archery
 {
     [RequireComponent(typeof(LineRenderer))]
-    public class PullInteraction : XRBaseInteractable
+    public class BowString : XRBaseInteractable
     {
         public static event Action<float> PullReleased;
 

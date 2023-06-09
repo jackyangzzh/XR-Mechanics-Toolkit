@@ -9,35 +9,30 @@ namespace XRMechanicsTookit.Archery
         private float speed = 10f;
 
         [SerializeField]
-        private Transform tip;
+        private float destroyTimer = 5f;
 
-        private Rigidbody rigidbody;
+        private Rigidbody rigidBody;
 
         private void Awake()
         {
-            rigidbody = GetComponent<Rigidbody>();
-            PullInteraction.PullReleased += Release;
+            rigidBody = GetComponent<Rigidbody>();
+            BowString.PullReleased += Release;
             Stop();
         }
 
         private void OnDestroy()
         {
-            PullInteraction.PullReleased -= Release;
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            Destroy(gameObject);
+            BowString.PullReleased -= Release;
         }
 
         private void Release(float val)
         {
-            PullInteraction.PullReleased -= Release;
+            BowString.PullReleased -= Release;
             gameObject.transform.parent = null;
             SetPhysics(true);
+            rigidBody.AddForce(transform.forward * val * speed, ForceMode.Impulse);
 
-            Vector3 force = transform.forward * val * speed;
-            rigidbody.AddForce(force, ForceMode.Impulse);
+            Destroy(gameObject, destroyTimer);
         }
 
         private void Stop()
@@ -47,8 +42,8 @@ namespace XRMechanicsTookit.Archery
 
         private void SetPhysics(bool val)
         {
-            rigidbody.useGravity = val;
-            rigidbody.isKinematic = !val;
+            rigidBody.useGravity = val;
+            rigidBody.isKinematic = !val;
         }
     }
 }
