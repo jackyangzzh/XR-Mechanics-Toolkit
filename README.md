@@ -19,6 +19,7 @@ Each mechanic is hosted in a separate folder for better understanding and easier
 
 - [Unity 2022.3 or later](https://unity.com/)
 - [Unity's XR Interaction Toolkit](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/manual/index.html)
+- [Unity's XR Hands](https://docs.unity3d.com/Packages/com.unity.xr.hands@1.1/manual/index.html)
 
 Ensure to properly set up your Unity Environment for XR development. For more information on setting up, you can refer to [Unity XR setup guide](https://docs.unity3d.com/Manual/configuring-project-for-xr.html).
 
