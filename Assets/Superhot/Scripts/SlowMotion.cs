@@ -7,20 +7,26 @@ namespace XRMechanicsTookit.SuperHot
     public class SlowMotion : MonoBehaviour
     {
         [SerializeField]
-        private CharacterController player = null;
-
-        [SerializeField]
-        private float slowTime = 0.1f;
+        private float slowTime = 0.2f;
 
         [SerializeField]
         private float normalTime = 1f;
 
         private bool isSlowMotion = false;
+        private Vector3 lastPosition;
+        private Vector3 velocity;
+
+        private void Start()
+        {
+            lastPosition = transform.position;
+        }
 
         private void Update()
         {
-            Debug.Log(player.velocity.magnitude);
-            if (player.velocity.magnitude > 0)
+            velocity = (transform.position - lastPosition) / Time.deltaTime;
+            lastPosition = transform.position;
+
+            if (velocity.magnitude > 0)
             {
                 if (isSlowMotion)
                 {
@@ -31,7 +37,7 @@ namespace XRMechanicsTookit.SuperHot
             }
             else
             {
-                if(!isSlowMotion)
+                if (!isSlowMotion)
                 {
                     Time.timeScale = slowTime;
                     Time.fixedDeltaTime = 0.02f * Time.timeScale;
