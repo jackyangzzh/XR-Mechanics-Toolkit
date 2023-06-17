@@ -13,11 +13,13 @@ public class ShatterHelper : MonoBehaviour
     [SerializeField]
     private float shatterRadius = 3f;
 
-    private void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        Shatter();
+        if(other.tag == "Bullet")
+        {
+            Shatter();
+        }
     }
-
     public void Shatter()
     {
         if (shatterObject == null)
