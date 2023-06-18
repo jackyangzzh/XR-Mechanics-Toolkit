@@ -145,7 +145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2702784498281282399, guid: 25df9c15d8ef88b47b9c3dc8b1b0baba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.21535492
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 2702784498281282399, guid: 25df9c15d8ef88b47b9c3dc8b1b0baba, type: 3}
       propertyPath: m_LocalPosition.z
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  amplitude: 1
+  amplitude: 0.5
   axis: 1
 --- !u!1 &490689255
 GameObject:
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  amplitude: 1
+  amplitude: 0.5
   axis: 2
 --- !u!1001 &1149207584
 PrefabInstance:
@@ -492,7 +492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2702784498281282399, guid: 25df9c15d8ef88b47b9c3dc8b1b0baba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.21535492
+      value: -0.11000013
       objectReference: {fileID: 0}
     - target: {fileID: 2702784498281282399, guid: 25df9c15d8ef88b47b9c3dc8b1b0baba, type: 3}
       propertyPath: m_LocalPosition.z

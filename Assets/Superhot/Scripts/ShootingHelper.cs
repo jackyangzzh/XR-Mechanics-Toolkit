@@ -6,10 +6,10 @@ namespace XRMechanicsTookit.SuperHot
     public class ShootingHelper : MonoBehaviour
     {
         [SerializeField]
-        private GameObject bulletPrefab;
+        private GameObject bulletPrefab = null;
 
         [SerializeField]
-        private Transform bulletSpawnPoint;
+        private Transform bulletSpawnPoint = null;
 
         [SerializeField]
         private float bulletSpeed = 20f;
