@@ -11,6 +11,7 @@ This repository contains numerous XR mechanics, each structured and implemented 
 The mechanics in this repository span a wide range of commonly used XR functions, such as:
 
 - [Archery](https://github.com/jackyangzzh/XR-Mechanics-Toolkit/tree/main/Assets/Archery)
+- [SuperHot](https://github.com/jackyangzzh/XR-Mechanics-Toolkit/tree/main/Assets/Superhot)
 - More coming!
 
 Each mechanic is hosted in a separate folder for better understanding and easier integration.
