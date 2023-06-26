@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Arrow
   - Bullet
+  - Top
+  - Bot
   layers:
   - Default
   - TransparentFX
