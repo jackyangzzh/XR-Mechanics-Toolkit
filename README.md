@@ -12,6 +12,7 @@ The mechanics in this repository span a wide range of commonly used XR functions
 
 - [Archery](https://github.com/jackyangzzh/XR-Mechanics-Toolkit/tree/main/Assets/Archery)
 - [SuperHot](https://github.com/jackyangzzh/XR-Mechanics-Toolkit/tree/main/Assets/Superhot)
+- [Puzzle](https://github.com/jackyangzzh/XR-Mechanics-Toolkit/tree/main/Assets/Puzzle)
 - More coming!
 
 Each mechanic is hosted in a separate folder for better understanding and easier integration.
